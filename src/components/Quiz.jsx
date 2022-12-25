@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { colors, school } from "../data/words";
+import { WORDS } from "../data/words";
+import { CategoryBtn } from "./CategoryBtn";
 
 export const Quiz = () => {
  const [mode, setMode] = useState("all");
- const allQuestions = colors.concat(school);
+ const allWords = WORDS;
 
- const [curQuestions, setCurQuestions] = useState(allQuestions);
+ const [curWords, setCurWords] = useState(allWords);
 
  const [answers, setAnswers] = useState([]);
 
@@ -29,78 +30,41 @@ export const Quiz = () => {
   let r = 0;
   for (let i = 0; i < answers.length; i++) {
    if (answers[i] === undefined) continue;
-   if (answers[i].toUpperCase() === curQuestions[i].japaneese.toUpperCase())
-    r++;
+   if (answers[i].toUpperCase() === curWords[i].japaneese.toUpperCase()) r++;
   }
   setRes(r);
   setIsSubmitted(true);
  };
 
+ const changeMode = (newMode) => {
+  setMode(newMode);
+  setCurWords(
+   newMode !== "all"
+    ? allWords.filter((item) => item.type === newMode)
+    : allWords
+  );
+  setIsSubmitted(false);
+  answersToNull();
+ };
+
  return (
   <>
    <div className="flex justify-center my-5">
-    <button
-     onClick={() => {
-      setMode("all");
-      setCurQuestions(allQuestions);
-      setIsSubmitted(false);
-      answersToNull();
-     }}
-     className={`border-2 border-slate-500 ${
-      mode == "all"
-       ? "text-slate-50 bg-slate-500"
-       : "text-slate-500 bg-transparent"
-     } font-semibold px-3 rounded-md`}
-    >
+    <CategoryBtn changeMode={changeMode} mode={mode} newMode="all">
      Все
-    </button>
-    <button
-     onClick={() => {
-      setMode("colors");
-      setCurQuestions(colors);
-      setIsSubmitted(false);
-      answersToNull();
-     }}
-     className={`border-2 border-slate-500 ${
-      mode == "colors"
-       ? "text-slate-50 bg-slate-500"
-       : "text-slate-500 bg-transparent"
-     } font-semibold px-3 rounded-md ml-3`}
-    >
+    </CategoryBtn>
+    <CategoryBtn changeMode={changeMode} mode={mode} newMode="colors">
      Цвета
-    </button>
-    <button
-     onClick={() => {
-      setMode("weather");
-      setIsSubmitted(false);
-      answersToNull();
-     }}
-     className={`border-2 border-slate-500 ${
-      mode == "weather"
-       ? "text-slate-50 bg-slate-500"
-       : "text-slate-500 bg-transparent"
-     } font-semibold px-3 rounded-md ml-3`}
-    >
+    </CategoryBtn>
+    <CategoryBtn changeMode={changeMode} mode={mode} newMode="weather">
      Погода
-    </button>
-    <button
-     onClick={() => {
-      setMode("school");
-      setCurQuestions(school);
-      setIsSubmitted(false);
-      answersToNull();
-     }}
-     className={`border-2 border-slate-500 ${
-      mode == "school"
-       ? "text-slate-50 bg-slate-500"
-       : "text-slate-500 bg-transparent"
-     } font-semibold px-3 rounded-md ml-3`}
-    >
+    </CategoryBtn>
+    <CategoryBtn changeMode={changeMode} mode={mode} newMode="school">
      Учеба
-    </button>
+    </CategoryBtn>
    </div>
 
-   {curQuestions.map((obj, index) => (
+   {curWords.map((obj, index) => (
     <div className="w-[90%] md:w-1/3 bg-lime-600 p-3 flex mb-2 rounded-2xl ml-[50%] translate-x-[-50%] text-xl font-semibold items-center">
      <div className="text-slate-50 w-1/4 mr-2">{obj.russian}</div>
      <input
@@ -123,7 +87,7 @@ export const Quiz = () => {
 
    {isSubmitted && (
     <div className="text-red-500 text-center font-bold text-3xl my-3">
-     Ваш результат: {res}
+     Ваш результат: {`${res} / ${curWords.length}`}
     </div>
    )}
   </>
