@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { WORDS } from "../data/words";
 import { CategoryBtn } from "./CategoryBtn";
 import { QuizContainer } from "./QuizContainer";
@@ -11,7 +11,7 @@ export const Quiz = () => {
 
  const [curWords, setCurWords] = useState(allWords);
 
- const [answers, setAnswers] = useState([]);
+ const [answers, setAnswers] = useState(Array(curWords.length).fill(""));
 
  const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -30,6 +30,8 @@ export const Quiz = () => {
  };
 
  const handleSubmit = () => {
+  console.log(curWords);
+  console.log(answers);
   let r = 0;
   for (let i = 0; i < answers.length; i++) {
    if (answers[i] === undefined) continue;
@@ -64,6 +66,16 @@ export const Quiz = () => {
     </CategoryBtn>
     <CategoryBtn changeMode={changeMode} mode={mode} newMode="school">
      Учеба
+    </CategoryBtn>
+    <CategoryBtn changeMode={changeMode} mode={mode} newMode="job">
+     Работа
+    </CategoryBtn>
+    <CategoryBtn
+     changeMode={changeMode}
+     mode={mode}
+     newMode="positive adjectives"
+    >
+     Положительные прилагательные
     </CategoryBtn>
    </div>
    <QuizContainer

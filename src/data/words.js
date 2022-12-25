@@ -69,4 +69,24 @@ export const WORDS = [
     russian: "книга",
     japaneese: "HON"
   },
+  {
+    type: "job",
+    russian: "юрист",
+    japaneese: "BENGOSHI"
+  },
+  {
+    type: "job",
+    russian: "доктор",
+    japaneese: "ISHA"
+  },
+  {
+    type: "positive adjectives",
+    russian: "крутой",
+    japaneese: "KAKKOII"
+  },
+  {
+    type: "positive adjectives",
+    russian: "хороший",
+    japaneese: "YASASHII"
+  },
 ]
