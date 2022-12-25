@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { WORDS } from "../data/words";
 import { CategoryBtn } from "./CategoryBtn";
+import { QuizContainer } from "./QuizContainer";
+import { Result } from "./Result";
+import { SubmitBtn } from "./SubmitBtn";
 
 export const Quiz = () => {
  const [mode, setMode] = useState("all");
@@ -14,7 +17,7 @@ export const Quiz = () => {
 
  const [res, setRes] = useState(0);
 
- const onchangeInput = (val, index) => {
+ const onChangeInput = (val, index) => {
   let temp = answers.map((i) => i);
   temp[index] = val.target.value;
   setAnswers(temp);
@@ -63,33 +66,14 @@ export const Quiz = () => {
      Учеба
     </CategoryBtn>
    </div>
+   <QuizContainer
+    curWords={curWords}
+    answers={answers}
+    onChangeInput={onChangeInput}
+   />
+   <SubmitBtn handleSubmit={handleSubmit} />
 
-   {curWords.map((obj, index) => (
-    <div className="w-[90%] md:w-1/3 bg-lime-600 p-3 flex mb-2 rounded-2xl ml-[50%] translate-x-[-50%] text-xl font-semibold items-center">
-     <div className="text-slate-50 w-1/4 mr-2">{obj.russian}</div>
-     <input
-      key={index}
-      type="text"
-      onChange={(val) => {
-       onchangeInput(val, index);
-      }}
-      className="w-3/4 rounded-xl focus:outline-lime-800 p-2"
-      value={answers[index]}
-     ></input>
-    </div>
-   ))}
-   <button
-    onClick={handleSubmit}
-    className="p-2 border-2 border-lime-600 text-lime-600 hover:bg-lime-600 text hover:text-slate-50 rounded-md ml-[50%] translate-x-[-50%] mt-5 ease-in duration-300 font-semibold"
-   >
-    Проверить
-   </button>
-
-   {isSubmitted && (
-    <div className="text-red-500 text-center font-bold text-3xl my-3">
-     Ваш результат: {`${res} / ${curWords.length}`}
-    </div>
-   )}
+   {isSubmitted && <Result curWords={curWords} res={res} />}
   </>
  );
 };
