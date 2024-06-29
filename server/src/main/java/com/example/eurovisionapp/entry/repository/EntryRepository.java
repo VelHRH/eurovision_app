@@ -1,6 +1,6 @@
-package com.example.eurovisionapp.repository;
+package com.example.eurovisionapp.entry.repository;
 
-import com.example.eurovisionapp.model.Entry;
+import com.example.eurovisionapp.entry.model.Entry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
