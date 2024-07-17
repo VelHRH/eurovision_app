@@ -21,9 +21,4 @@ public class EntryController {
     public ResponseEntity<List<Entry>> getAllEntries() {
         return entryService.getAll();
     }
-
-    @GetMapping("/load")
-    public ResponseEntity<String> loadEntries() {
-        return entryService.load();
-    }
 }

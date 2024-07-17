@@ -1,6 +1,6 @@
 package com.example.eurovisionapp.entry.model;
 
-import com.example.eurovisionapp.artist.model.Artist;
+import com.example.eurovisionapp.person.model.Person;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,12 +16,12 @@ public class Entry {
     private String country_id;
     private String name;
     @ManyToMany
-    private List<Artist> artists;
+    private List<Person> artists;
     private String link;
     @ManyToMany
-    private List<Artist> composers;
+    private List<Person> composers;
     @ManyToMany
-    private List<Artist> lyricists;
+    private List<Person> lyricists;
     @Column(columnDefinition="TEXT")
     private String lyrics;
 }

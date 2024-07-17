@@ -1,7 +1,5 @@
 package com.example.eurovisionapp.entry.service;
 
-import com.example.eurovisionapp.csvBatch.CsvReader;
-import com.example.eurovisionapp.csvBatch.EntryCsvBean;
 import com.example.eurovisionapp.entry.model.Entry;
 import com.example.eurovisionapp.entry.repository.EntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +23,5 @@ public class EntryService {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
-    }
-
-    public ResponseEntity<String> load() {
-        List<EntryCsvBean> entries = CsvReader.readEntriesFile();
-        for (EntryCsvBean entry : entries) {
-            System.out.println(entry.getSong() + "      " + entry.getPerformer());
-        }
-        return new ResponseEntity<>("Loaded", HttpStatus.OK);
     }
 }
