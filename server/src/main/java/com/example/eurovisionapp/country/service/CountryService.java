@@ -19,6 +19,10 @@ public class CountryService {
         return countryRepository.save(country);
     }
 
+    public Country getCountryById(String id) {
+        return countryRepository.findById(id);
+    }
+
     public void loadCountriesFromCsv(List<EntryCsvBean> entries) {
         if (countryRepository.count() > 0) {
             return;

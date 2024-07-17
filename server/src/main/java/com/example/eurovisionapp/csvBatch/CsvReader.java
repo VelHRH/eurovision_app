@@ -13,6 +13,7 @@ public class CsvReader {
             FileReader reader = new FileReader("/home/valentin/Downloads/eurovision-dataset/contestants.csv");
             CsvToBean<EntryCsvBean> csvtobean = new CsvToBeanBuilder<EntryCsvBean>(reader)
                     .withType(EntryCsvBean.class)
+                    .withSeparator(',')
                     .build();
             return csvtobean.parse();
         } catch (FileNotFoundException e) {
