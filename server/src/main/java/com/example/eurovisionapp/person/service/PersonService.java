@@ -6,6 +6,7 @@ import com.example.eurovisionapp.person.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,11 +45,29 @@ public class PersonService {
     }
 
     private void addPersonToSet(String names, Set<String> set) {
-        if (names != null && !names.trim().isEmpty()) {
-            String[] splitNames = names.split(";");
-            for (String name : splitNames) {
-                set.add(name.trim());
-            }
+        String[] splitNames = splitNames(names);
+        if (splitNames == null) return;
+        for (String name : splitNames) {
+            set.add(name.trim());
         }
+    }
+
+    public List<Person> getPeopleByNames(String names) {
+        List<Person> people = new ArrayList<>();
+        String[] splitNames = splitNames(names);
+
+        if (splitNames == null) return people;
+
+        for (String name : splitNames) {
+            people.add(personRepository.findByName(name));
+        }
+        return people;
+    }
+
+    public String[] splitNames(String names) {
+        if (names != null && !names.trim().isEmpty()) {
+            return names.split(";");
+        }
+        return null;
     }
 }

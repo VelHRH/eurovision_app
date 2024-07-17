@@ -42,16 +42,16 @@ public class EntryCsvBean {
     private String pointsSemi;
 
     @CsvBindByName(column = "points_tele_final")
-    private String pointsTeleFinal;
+    private String pointsFinalTele;
 
     @CsvBindByName(column = "points_jury_final")
-    private String pointsJuryFinal;
+    private String pointsFinalJury;
 
     @CsvBindByName(column = "points_tele_sf")
-    private String pointsTeleSemi;
+    private String pointsSemiTele;
 
     @CsvBindByName(column = "points_jury_sf")
-    private String pointsJurySemi;
+    private String pointsSemiJury;
 
     @CsvBindByName()
     private String composers;
